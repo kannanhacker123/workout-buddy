@@ -56,7 +56,7 @@ const WORKOUT_DATA = {
 };
 
 // Timer component with circular progress
-const CircularTimer = ({ timeLeft, totalTime }) => {
+const CircularTimer: React.FC<{ timeLeft: number; totalTime: number }> = ({ timeLeft, totalTime }) => {
   const radius = 60;
   const circumference = 2 * Math.PI * radius;
   const progress = timeLeft / totalTime;
@@ -94,7 +94,17 @@ const CircularTimer = ({ timeLeft, totalTime }) => {
 };
 
 // Exercise Card component
-const ExerciseCard = ({ exercise, isActive }) => (
+interface Exercise {
+  name: string;
+  type: string;
+  sets: string;
+  rest: number;
+  video: string;
+  duration: number;
+  description: string;
+}
+
+const ExerciseCard: React.FC<{ exercise: Exercise; isActive: boolean }> = ({ exercise, isActive }) => (
   <Card className={`mb-2 ${isActive ? 'border-2 border-chart-1' : ''}`}>
     <CardContent className="p-4">
       <div className="flex justify-between items-center">
@@ -132,7 +142,7 @@ export default function WorkoutPage() {
 
   // Handle timer countdown
   useEffect(() => {
-    let interval;
+    let interval: NodeJS.Timeout | undefined;
     if (isPlaying && timeLeft > 0) {
       interval = setInterval(() => {
         setTimeLeft((prev) => prev - 1);
@@ -172,7 +182,7 @@ export default function WorkoutPage() {
     } else {
       setWorkoutComplete(true);
     }
-  }, [activeStep, WORKOUT_DATA.exercises.length]);
+  }, [activeStep]);
 
   const handleSkipRest = useCallback(() => {
     setIsRest(false);
@@ -182,7 +192,7 @@ export default function WorkoutPage() {
     } else {
       setWorkoutComplete(true);
     }
-  }, [activeStep, WORKOUT_DATA.exercises.length]);
+  }, [activeStep]);
 
   const saveProgress = useCallback(() => {
     // In a real app, this would save to backend

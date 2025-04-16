@@ -24,7 +24,17 @@ const CHALLENGES = [
 ];
 
 // WorkoutCard component
-const WorkoutCard = ({ workout }) => (
+// Define the Workout type
+interface Workout {
+  id: string;
+  name: string;
+  type: string;
+  duration: number;
+  difficulty: string;
+  progress: number;
+}
+
+const WorkoutCard = ({ workout }: { workout: Workout }) => (
   <Link href={`/workouts/${workout.id}`}>
     <Card className="hover:bg-accent transition-colors h-full">
       <CardHeader>
@@ -58,7 +68,14 @@ const WorkoutCard = ({ workout }) => (
 );
 
 // ChallengeCard component
-const ChallengeCard = ({ challenge }) => (
+interface Challenge {
+  id: string;
+  name: string;
+  duration: string;
+  participants: number;
+}
+
+const ChallengeCard = ({ challenge }: { challenge: Challenge }) => (
   <Link href={`/workouts/${challenge.id}`}>
     <Card className="hover:bg-accent transition-colors">
       <CardContent className="p-6">

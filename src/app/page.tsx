@@ -31,9 +31,9 @@ const pulseAnimation = {
     transition: {
       duration: 0.8,
       repeat: Infinity,
-      repeatType: "reverse"
-    }
-  }
+      repeatType: "reverse" as const, // Explicitly cast to the correct type
+    },
+  },
 };
 
 const floatingAnimation = {
@@ -43,10 +43,10 @@ const floatingAnimation = {
     transition: {
       duration: 3,
       repeat: Infinity,
-      repeatType: "reverse",
-      ease: "easeInOut"
-    }
-  }
+      repeatType: "mirror" as const, // Changed from "reverse" to "mirror"
+      ease: "easeInOut",
+    },
+  },
 };
 
 export default function HomePage() {
