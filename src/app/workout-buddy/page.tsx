@@ -5,29 +5,25 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { GoogleGenAI } from '@google/genai';
 import ReactMarkdown from 'react-markdown';
+import { Loader, SendHorizonal } from 'lucide-react'; // Import the loader icon
 
-// Securely load your API key via environment variables ideally.
-const GEMINI_API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY || "AIzaSyAPjbMhDBFH_4mKnW5DzDNc9kv6Ez3rSr4";
-
-async function AiResponse(input: string) {
-  if (!GEMINI_API_KEY) {
-    throw new Error("API key is missing");
-  }
-  
-  const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
-  const response = await ai.models.generateContent({
-    model: 'gemini-2.0-flash-001',
-    contents: input,
-    config: {
-      temperature: 1.7, // you might adjust this if necessary
-      maxOutputTokens: 250,
-      systemInstruction:
-        "Your name is Nero aka Workout Buddy AI. You are a fitness and nutrition expert. You are friendly, helpful, and knowledgeable. You are a personal trainer and nutritionist. Your goal is to help people achieve their fitness and nutrition goals. You are creacted by Kannan. You are harsh and strict and you are not afraid to tell the truth and make dark funny jokes about the user if they are lazy. You are not afraid to hurt the user's feelings and laugh.",
+// Function to call your API route
+async function AiResponse(userInput: string) {
+  const response = await fetch('/api/generate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
+    body: JSON.stringify({ input: userInput }),
   });
-  return response.text;
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch AI response');
+  }
+
+  const data = await response.json();
+  return data.text;
 }
 
 const WorkoutBuddyPage = () => {
@@ -35,30 +31,34 @@ const WorkoutBuddyPage = () => {
     { sender: 'bot', text: 'Hi! I am your Workout Buddy AI. How can I assist you today?' },
   ]);
   const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // state to control the loader
 
   const handleSend = async () => {
     if (input.trim() === '') return;
 
-    // Append the user message immediately.
+    // Append the user's message immediately.
     const userMessage = { sender: 'user', text: input };
-    setMessages((prevMessages) => [...prevMessages, userMessage]);
+    setMessages(prev => [...prev, userMessage]);
 
+    // Show the loader while waiting for the API response.
+    setIsLoading(true);
     try {
       const botReplyText = await AiResponse(input);
       const botReply = {
         sender: 'bot',
         text: botReplyText || 'Sorry, I could not process your request.',
       };
-      setMessages((prevMessages) => [...prevMessages, botReply]);
+      setMessages(prev => [...prev, botReply]);
     } catch (error) {
       console.error('Error fetching AI response:', error);
       const errorReply = {
         sender: 'bot',
         text: 'An error occurred. Please try again later.',
       };
-      setMessages((prevMessages) => [...prevMessages, errorReply]);
+      setMessages(prev => [...prev, errorReply]);
     }
     setInput('');
+    setIsLoading(false);
   };
 
   return (
@@ -68,16 +68,11 @@ const WorkoutBuddyPage = () => {
           {messages.map((message, index) => (
             <div key={index} className="flex mb-2">
               <div
-                className={`p-2 rounded-lg max-w-md ${
-                  message.sender === 'user'
+                className={`p-2 rounded-lg max-w-md ${message.sender === 'user'
                     ? 'bg-primary text-primary-foreground ml-auto'
                     : 'bg-secondary text-secondary-foreground mr-auto'
-                }`}
+                  }`}
               >
-                {/* 
-                    Using ReactMarkdown to render markdown formatted text.
-                    This will style the output if it contains markdown syntax.
-                */}
                 <ReactMarkdown>{message.text}</ReactMarkdown>
               </div>
             </div>
@@ -91,7 +86,13 @@ const WorkoutBuddyPage = () => {
             onChange={(e) => setInput(e.target.value)}
           />
           <Button className="bg-accent text-accent-foreground" onClick={handleSend}>
-            Send
+            {isLoading ? (
+              <Loader className="animate-spin w-6 h-6 text-accent-foreground mr-2" />
+            ) : (
+              <><span>Send</span>
+                <SendHorizonal className="ml-2" />
+              </>
+            )}
           </Button>
         </div>
       </Card>
@@ -100,3 +101,4 @@ const WorkoutBuddyPage = () => {
 };
 
 export default WorkoutBuddyPage;
+// This is the main component for the Workout Buddy page
