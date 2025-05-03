@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Workout Buddy
+
+A responsive fitness tracking web application with an integrated AI personal trainer named Nero. Built with Next.js, Tailwind CSS, and Shadcn UI components.
+
+## Overview
+
+Workout Buddy helps you plan, track, and optimize your fitness journey. With an intuitive interface and mobile-responsive design, you can manage your workouts from any device. The standout feature is Nero, your AI-powered workout companion that provides personalized coaching, form corrections, and motivation to keep you on track.
+
+## Features
+
+- 🤖 **Nero AI Coach**: Your personal AI trainer that offers real-time feedback and personalized workout recommendations
+- 📱 Fully responsive design that works on desktop, tablet, and mobile devices
+- 🏋️ Create and customize workout routines with AI assistance
+- 📊 Track your progress with visual performance metrics
+- 🗓️ Schedule and manage your workout calendar
+- ⏱️ Built-in workout timer and rest period tracking
+- 🔄 Sync your workout data across devices
+- 💬 Chat with Nero for workout advice, nutritional guidance, and motivation
+
+## Tech Stack
+
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components**: [Shadcn UI](https://ui.shadcn.com/)
+- **AI Integration**: Custom-trained model for fitness coaching (Nero)
+- **Natural Language Processing**: For Nero's conversational abilities
+- **Deployment**: [Vercel](https://vercel.com/)
+
+## Live Demo
+
+Check out Workout Buddy live at: [workout-buddy-gray.vercel.app/workout-buddy](https://workout-buddy-gray.vercel.app/workout-buddy)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 16.8.0 or later
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/kannan/workout-buddy.git
+cd workout-buddy
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Run the development server:
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+workout-buddy/
+├── app/
+│   ├── api/         # API routes
+│   ├── dashboard/   # Dashboard pages
+│   ├── workout/     # Workout pages
+│   ├── profile/     # User profile pages
+│   ├── layout.tsx   # Root layout
+│   └── page.tsx     # Home page
+├── components/
+│   ├── ui/          # Shadcn UI components
+│   ├── workout/     # Workout-related components
+│   ├── dashboard/   # Dashboard components
+│   ├── nero/        # Nero AI components
+│   └── shared/      # Shared components
+├── lib/
+│   ├── utils.ts     # Utility functions
+│   ├── db.ts        # Database client
+│   └── nero-ai/     # Nero AI model and logic
+├── public/          # Static files
+├── styles/          # Global styles
+├── next.config.js   # Next.js configuration
+├── tailwind.config.js # Tailwind configuration
+└── package.json     # Project dependencies
+```
 
-## Learn More
+## Screenshots
 
-To learn more about Next.js, take a look at the following resources:
+*[Add screenshots of your application here]*
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Deploy on Vercel
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+
+Kannan - [GitHub](https://github.com/kannanhacker123)
+
+Project Link: [https://github.com/kannan/workout-buddy](https://github.com/kannanhacker123/workout-buddy)
+
+Live Demo: [workout-buddy-gray.vercel.app/workout-buddy](https://workout-buddy-gray.vercel.app/workout-buddy)
