@@ -19,7 +19,7 @@ import {
 } from "lucide-react"
 import { CldImage, CldUploadWidget } from 'next-cloudinary'
 import { SignOutButton, useAuth, useUser } from "@clerk/nextjs"
-
+import { checkAuth } from "./checkAuth"
 // File type definitions
 const FILE_TYPES = {
   IMAGE: ["jpg", "jpeg", "png", "gif", "webp", "svg"],
@@ -85,7 +85,23 @@ const sampleFiles: File[] = [
 export default function FilePage() {
     const router = useRouter();
     const { isLoaded: authLoaded, userId} = useAuth();
+    
     const { user } = useUser();
+    
+    const [authState, setAuthState] = useState<{ isAuthenticated: boolean; user: any | null }>({ isAuthenticated: false, user: null });
+
+    useEffect(() => {
+        const fetchAuthState = async () => {
+            const result = await checkAuth();
+            setAuthState(result);
+        };
+        // Fetch auth state on component mount
+        fetchAuthState();
+        console.log("hi");
+        
+    }, [setAuthState]);
+
+    console.log("user", authState.isAuthenticated);
     
     const [activeFilter, setActiveFilter] = useState("Recent");
     const [showModal, setShowModal] = useState(false);
@@ -95,7 +111,9 @@ export default function FilePage() {
     
     // Authentication check
     useEffect(() => {
-        if (authLoaded && !userId) {
+        if (authLoaded && !userId ) {
+            // Redirect to home if not authenticated
+            console.log("Not authenticated");
             router.push("/");
         }
     }, [authLoaded, userId, router]);
@@ -103,7 +121,6 @@ export default function FilePage() {
     // Fetch files on component mount (only if authenticated)
     useEffect(() => {
         if (!userId) return;
-        
         // Simulate API fetch
         const fetchFiles = async () => {
             try {
@@ -310,7 +327,7 @@ export default function FilePage() {
                     {/* User Profile */}
                     <div className="flex items-center space-x-3">
                         <div className="text-right hidden md:block">
-                            <p className="font-medium">{user?.firstName} {user?.lastName}</p>
+                            <p className="font-mono text-sm">{user?.firstName} {user?.lastName}</p>
                             <p className="text-sm text-gray-500">{user?.emailAddresses[0]?.emailAddress}</p>
                         </div>
                         
@@ -379,7 +396,7 @@ export default function FilePage() {
                         </div>
                         
                         {sortedFiles.map((file) => (
-                            <div key={file.id} className="grid grid-cols-12 gap-4 px-4 py-3 border-b hover:bg-blue-50 items-center relative">
+                            <div key={file.id} className="grid grid-cols-12 gap-4 px-4 py-3 border-gray-600 hover:bg-primary-foreground items-center relative">
                                 <div className="col-span-6 flex items-center space-x-3 overflow-hidden">
                                     {file.type.startsWith('image/') ? (
                                         <div className="h-10 w-10 rounded flex-shrink-0 overflow-hidden">
@@ -392,7 +409,7 @@ export default function FilePage() {
                                             />
                                         </div>
                                     ) : (
-                                        <div className="h-10 w-10 rounded flex-shrink-0 flex items-center justify-center bg-blue-100">
+                                        <div className="h-10 w-10 rounded flex-shrink-0 flex items-center justify-center  ">
                                             {getFileIcon({ fileName: file.name })}
                                         </div>
                                     )}

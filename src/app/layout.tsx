@@ -27,11 +27,7 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-// Separate metadata from viewport as per Next.js recommendation
-export const metadata: Metadata = {
-  title: "Workout-Buddy | Your Fitness Companion",
-  description: "Track your workouts, set goals, and monitor your fitness progress",
-};
+
 
 // Add viewport export separately
 export const viewport: Viewport = {
@@ -73,4 +69,29 @@ export default function RootLayout({
       </html>
     </ClerkProvider>
   );
+}
+
+export const metadata: Metadata = {
+  title: 'Workout Buddy | AI-Powered Fitness Companion with Nero',
+  description: 'Achieve your fitness goals with Workout Buddy and Nero, your AI personal trainer. Track workouts, get personalized plans, and receive real-time coaching.',
+  keywords: 'workout app, fitness tracker, AI personal trainer, Nero, exercise planner',
+  openGraph: {
+    title: 'Workout Buddy | AI-Powered Fitness Companion',
+    description: 'Train smarter with Nero, your AI fitness coach',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+      }
+    ],
+    type: 'website',
+    url: 'https://workout-buddy-gray.vercel.app/workout-buddy',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Workout Buddy | AI-Powered Fitness Companion',
+    description: 'Train smarter with Nero, your AI fitness coach',
+    images: ['/og-image.jpg'],
+  },
 }
