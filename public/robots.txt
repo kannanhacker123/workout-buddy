@@ -15,7 +15,7 @@ Disallow: /dashboard/
 Allow: /
 
 # Link to your sitemap (generate one via your build process)
-Sitemap: https://www.your-domain.com/sitemap.xml
+Sitemap: https://workout-buddy-gray.vercel.app/sitemap.xml
 
 # (Optional) If you want a little crawl‑delay to lighten your server:
 # Crawl-delay: 5
