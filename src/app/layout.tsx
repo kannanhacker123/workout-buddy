@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import NavBar from "@/components/my/NavBar";
 import { Toaster } from "@/components/ui/sonner";
 import SideBar from "@/components/my/SideBar";
+import { Analytics } from '@vercel/analytics/next';
 
 // Load fonts
 const geistSans = Geist({
@@ -59,6 +60,7 @@ export default function RootLayout({
                 <main className="flex-1 px-4 md:px-6 py-4 md:py-6 overflow-y-scroll h-[calc(100vh-64px)]">
                   <div className="max-w-7xl mx-auto">
                     {children}
+                    <Analytics />
                   </div>
                 </main>
               </div>
