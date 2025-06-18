@@ -1,38 +1,164 @@
 // app/api/generate/route.ts
 
-import { NextResponse } from 'next/server';
-import { GoogleGenAI } from '@google/genai';
+import { NextRequest, NextResponse } from 'next/server';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  try {
     // Parse the JSON body of the request
-    const { input } = await request.json();
+    const { input, systemPrompt } = await request.json();
 
-    // Get your secret API key from a non-public environment variable
+    // Validate required fields
+    if (!input || typeof input !== 'string') {
+      return NextResponse.json(
+        { error: 'Input is required and must be a string' },
+        { status: 400 }
+      );
+    }
+
+    // Get configuration from environment variables
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-    const SYSTEM_INSTRUCTION = process.env.SYSTEM_INSTRUCTION || 'you are a personal trainer.';
-    const MAX_TOKENS = parseInt(process.env.MAX_TOKENS || '150', 10); // Default to 150 if not set
-    const TEMPERATURE = parseFloat(process.env.TEMPERATURE || '0.7'); // Default to 0.7 if not set
+    const MAX_TOKENS = parseInt(process.env.MAX_TOKENS || '200', 10);
+    const TEMPERATURE = parseFloat(process.env.TEMPERATURE || '0.7');
 
     if (!GEMINI_API_KEY) {
-        return NextResponse.json({ error: 'API key is missing' }, { status: 500 });
+      console.error('GEMINI_API_KEY is not configured');
+      return NextResponse.json(
+        { error: 'API configuration error' },
+        { status: 500 }
+      );
     }
 
-    try {
-        const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.0-flash-001',
-            contents: input,
-            config: {
-                temperature: TEMPERATURE, // Controls the randomness of the output
-                maxOutputTokens: MAX_TOKENS, // Maximum number of tokens in the output
-                systemInstruction:
-                    SYSTEM_INSTRUCTION, // This is a system instruction that sets the context for the AI's responses
-            },
-        });
+    // Initialize the Google Generative AI client
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
-        return NextResponse.json({ text: response.text });
-    } catch (error) {
-        console.error('Error in AI API call:', error);
-        return NextResponse.json({ error: 'Failed to fetch AI response' }, { status: 500 });
+    // Get the generative model
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-1.5-flash',
+      generationConfig: {
+        temperature: TEMPERATURE,
+        maxOutputTokens: MAX_TOKENS,
+      },
+      systemInstruction: systemPrompt || 'You are a helpful AI assistant.',
+    });
+
+    // Create the content array with proper role structure
+    const contents = [
+      {
+        role: 'user',
+        parts: [{ text: input }],
+      },
+    ];
+
+    // Generate content
+    const result = await model.generateContent({ contents });
+    const response = await result.response;
+    const text = response.text();
+
+    return NextResponse.json({ text });
+
+  } catch (error) {
+    console.error('Error in Gemini API call:', error);
+
+    // Handle specific error types
+    const err = error as Error;
+    if (typeof err.message === 'string' && err.message.includes('API key')) {
+      return NextResponse.json(
+        { error: 'Invalid API key' },
+        { status: 401 }
+      );
     }
+
+    if (typeof err.message === 'string' && err.message.includes('quota')) {
+      return NextResponse.json(
+        { error: 'API quota exceeded' },
+        { status: 429 }
+      );
+    }
+
+    return NextResponse.json(
+      { error: 'Failed to generate response' },
+      { status: 500 }
+    );
+  }
+}
+
+// Optional: Streaming version
+export async function PUT(request: NextRequest) {
+  try {
+    const { input, systemPrompt } = await request.json();
+
+    if (!input || typeof input !== 'string') {
+      return NextResponse.json(
+        { error: 'Input is required and must be a string' },
+        { status: 400 }
+      );
+    }
+
+    const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+    const MAX_TOKENS = parseInt(process.env.MAX_TOKENS || '200', 10);
+    const TEMPERATURE = parseFloat(process.env.TEMPERATURE || '0.7');
+
+    if (!GEMINI_API_KEY) {
+      return NextResponse.json(
+        { error: 'API configuration error' },
+        { status: 500 }
+      );
+    }
+
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-1.5-flash',
+      generationConfig: {
+        temperature: TEMPERATURE,
+        maxOutputTokens: MAX_TOKENS,
+      },
+      systemInstruction: systemPrompt || 'You are a helpful AI assistant.',
+    });
+
+    const contents = [
+      {
+        role: 'user',
+        parts: [{ text: input }],
+      },
+    ];
+
+    // Generate streaming content
+    const result = await model.generateContentStream({ contents });
+
+    // Create a readable stream
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          for await (const chunk of result.stream) {
+            const chunkText = chunk.text();
+            if (chunkText) {
+              controller.enqueue(
+                new TextEncoder().encode(`data: ${JSON.stringify({ text: chunkText })}\n\n`)
+              );
+            }
+          }
+          controller.enqueue(new TextEncoder().encode('data: [DONE]\n\n'));
+          controller.close();
+        } catch (error) {
+          controller.error(error);
+        }
+      },
+    });
+
+    return new Response(stream, {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+      },
+    });
+
+  } catch (error) {
+    console.error('Error in streaming Gemini API call:', error);
+    return NextResponse.json(
+      { error: 'Failed to generate streaming response' },
+      { status: 500 }
+    );
+  }
 }
