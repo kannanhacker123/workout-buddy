@@ -82,7 +82,7 @@ export const metadata: Metadata = {
     description: 'Train smarter with Nero, your AI fitness coach',
     images: [
       {
-        url: 'https://chatgpt.com/s/m_6852b62cd8f48191b4100f4b08272423',
+        url: 'https://github.com/kannanhacker123/workout-buddy/blob/master/public/Nero.png?raw=true',
         width: 1200,
         height: 630,
       }
