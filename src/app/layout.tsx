@@ -82,18 +82,12 @@ export const metadata: Metadata = {
     description: 'Train smarter with Nero, your AI fitness coach',
     images: [
       {
-        url: '/og-image.jpg',
+        url: 'https://chatgpt.com/s/m_6852b62cd8f48191b4100f4b08272423',
         width: 1200,
         height: 630,
       }
     ],
     type: 'website',
     url: 'https://workout-buddy-gray.vercel.app/workout-buddy',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Workout Buddy | AI-Powered Fitness Companion',
-    description: 'Train smarter with Nero, your AI fitness coach',
-    images: ['/og-image.jpg'],
   },
 }

@@ -3,13 +3,13 @@
 
 User-agent: *
 # Block all server‑only or sensitive endpoints
-Disallow: /api/
-Disallow: /forbidden/
-Disallow: /files/
-Disallow: /settings/
+# Disallow: /api/
+# Disallow: /forbidden/
+# Disallow: /files/
+# Disallow: /settings/
 
 # (Optional) If you have internal dashboards you don't want indexed:
-Disallow: /dashboard/
+# Disallow: /admin/
 
 # Allow everything else (static pages, workouts info, goals, etc.)
 Allow: /
