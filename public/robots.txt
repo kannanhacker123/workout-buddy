@@ -1,21 +1,9 @@
-# robots.txt for Workout‑Buddy
-# Served from the project’s public root (e.g. /public/robots.txt)
-
+# *
 User-agent: *
-# Block all server‑only or sensitive endpoints
-# Disallow: /api/
-# Disallow: /forbidden/
-# Disallow: /files/
-# Disallow: /settings/
-
-# (Optional) If you have internal dashboards you don't want indexed:
-# Disallow: /admin/
-
-# Allow everything else (static pages, workouts info, goals, etc.)
 Allow: /
 
-# Link to your sitemap (generate one via your build process)
-Sitemap: https://workout-buddy-gray.vercel.app/sitemap.xml
+# Host
+Host: https://workout-buddy-gray.vercel.app
 
-# (Optional) If you want a little crawl‑delay to lighten your server:
-# Crawl-delay: 5
+# Sitemaps
+Sitemap: https://workout-buddy-gray.vercel.app/sitemap.xml
