@@ -1,10 +1,11 @@
 /** @type {import('next-sitemap').IConfig} */
-module.exports = {
-  siteUrl: 'https://workout-buddy-gray.vercel.app', // change if needed
+const config = {
+  siteUrl: 'https://workout-buddy-gray.vercel.app',
   generateRobotsTxt: true,
   sitemapSize: 7000,
   changefreq: 'daily',
   priority: 0.7,
+  exclude: [], // Leave empty to include all routes
   robotsTxtOptions: {
     policies: [
       {
@@ -14,3 +15,5 @@ module.exports = {
     ],
   },
 };
+
+export default config;
