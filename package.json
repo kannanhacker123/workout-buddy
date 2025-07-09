@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@ai-sdk/google-vertex": "^2.2.18",
-    "@clerk/nextjs": "^6.18.1",
+    "@clerk/nextjs": "^6.23.3",
     "@google/genai": "^0.8.0",
     "@google/generative-ai": "^0.24.1",
     "@hookform/resolvers": "^5.0.1",
