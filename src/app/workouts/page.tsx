@@ -95,26 +95,6 @@ const ChallengeCard = ({ challenge }: { challenge: Challenge }) => (
   </Link>
 );
 
-export const metadata = {
-  title: "Workouts | Workout Buddy",
-  description: "Explore full-body routines, target muscles, and AI-planned workout sets designed for all fitness levels.",
-  keywords: ["Workout Plans", "Exercise List", "Gym Routine"],
-  openGraph: {
-    title: "Workout Programs",
-    description: "Browse AI-curated workouts for strength, cardio, and recovery.",
-    url: "https://workout-buddy-gray.vercel.app/workouts",
-    siteName: "Workout Buddy",
-    images: [
-      {
-        url: "/vercel.png",
-        width: 800,
-        height: 600,
-        alt: "Workout Routines",
-      },
-    ],
-    type: "website",
-  },
-};
 
 
 export default function WorkoutsPage() {

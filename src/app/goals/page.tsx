@@ -19,26 +19,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Edit, Trash2 } from "lucide-react";
 
 
-export const metadata = {
-  title: "Goals | Workout Buddy",
-  description: "Set, manage, and achieve your fitness goals using AI coaching and personalized progress tracking.",
-  keywords: ["Fitness Goals", "Gym Progress", "Workout Objectives"],
-  openGraph: {
-    title: "Fitness Goals",
-    description: "Set your weekly and monthly goals and track progress.",
-    url: "https://workout-buddy-gray.vercel.app/goals",
-    siteName: "Workout Buddy",
-    images: [
-      {
-        url: "/vercel.png",
-        width: 800,
-        height: 600,
-        alt: "Fitness Goals",
-      },
-    ],
-    type: "website",
-  },
-};
+
 interface Goal {
   id: number;
   text: string;
