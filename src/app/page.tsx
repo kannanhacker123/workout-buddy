@@ -51,6 +51,26 @@ const floatingAnimation = {
   },
 };
 
+export const metadata = {
+  title: "Home | Workout Buddy AI",
+  description: "Your AI-powered fitness companion. Track workouts, follow plans, and reach your fitness goals with ease.",
+  keywords: ["Workout Buddy", "Fitness AI", "Home Fitness App"],
+  openGraph: {
+    title: "Workout Buddy AI - Your Personal Gym Partner",
+    description: "Smart AI to help you stay fit. Start your workout journey now.",
+    url: "https://workout-buddy-gray.vercel.app",
+    siteName: "Workout Buddy",
+    images: [
+      {
+        url: "/vercel.png", // Use your hero/banner image
+        width: 800,
+        height: 600,
+        alt: "Workout Buddy Home",
+      },
+    ],
+    type: "website",
+  },
+};
 export default function HomePage() {
   const containerRef = useRef(null);
 
@@ -632,3 +652,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+
