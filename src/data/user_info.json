@@ -1,0 +1,23 @@
+{
+    "username": "kannan",
+    "age": 19,
+    "height": 175,
+    "weight": 75,
+    "gender": "male",
+    "health": "good",
+    "medicines": [],
+    "allergies": ["dust"],
+    "body_type": "normal",
+    "bmi": 24.5,
+    "color": "white",
+    "skin_type": "dry",
+    "hair_type": "wavy",
+    "hair_color": "brown",
+    "eye_color": "blue",
+    "eye_type": "normal",
+    "smoking": "no",
+    "drinking": "no",
+    "sleep": 8,
+    "hobbies": ["eating", "coding", "sleeping"],
+    "goals": ["lose weight", "improve fitness"]
+}

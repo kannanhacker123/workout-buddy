@@ -1,0 +1,118 @@
+[
+  {
+    "day": 1,
+    "date": "28/06/2025",
+    "exercises": [
+      {
+        "name": "Pushups",
+        "reps": 3,
+        "sets": 6,
+        "intensity": "medium",
+        "note": "Good form"
+      },
+      {
+        "name": "Squats",
+        "reps": 3,
+        "sets": 6,
+        "intensity": "medium",
+        "note": "Good form"
+      },
+      {
+        "name": "Jumping",
+        "reps": 3,
+        "duration": 40,
+        "intensity": "medium",
+        "note": "Good form."
+      },
+      {
+        "name": "Mobility",
+        "reps": 3,
+        "duration": 30,
+        "intensity": "easy",
+        "note": "Good form"
+      },
+      {
+        "name": "Rest",
+        "reps": 3,
+        "duration": 15,
+        "intensity": "easy",
+        "note": "Rest between sets"
+      }
+    ]
+  },
+  {
+    "day": 2,
+    "date": "08/07/2025",
+    "exercises": [
+      {
+        "name": "Pushups",
+        "reps": 3,
+        "sets": 6,
+        "intensity": "medium",
+        "note": "Good form"
+      },
+      {
+        "name": "Squats",
+        "reps": 3,
+        "sets": 6,
+        "intensity": "medium",
+        "note": "Good form"
+      },
+      {
+        "name": "Jumping",
+        "reps": 3,
+        "duration": 40,
+        "intensity": "medium",
+        "note": "Good form."
+      },
+      {
+        "name": "Cardio",
+        "reps": 3,
+        "duration": 60,
+        "intensity": "easy",
+        "note": "Good form"
+      },
+      {
+        "name": "Rest",
+        "reps": 3,
+        "duration": 15,
+        "intensity": "easy",
+        "note": "Rest between sets"
+      }
+    ]
+  },
+  {
+    "day": 3,
+    "date": "10/07/2025",
+    "exercises": [
+      {
+        "name": "Pushups",
+        "reps": 3,
+        "sets": 6,
+        "intensity": "medium",
+        "note": "Good form"
+      },
+      {
+        "name": "Squats",
+        "reps": 3,
+        "sets": 6,
+        "intensity": "medium",
+        "note": "Good form"
+      },
+      {
+        "name": "Jumping",
+        "reps": 3,
+        "duration": 40,
+        "intensity": "medium",
+        "note": "Good form."
+      },
+      {
+        "name": "Rest",
+        "reps": 3,
+        "duration": 15,
+        "intensity": "easy",
+        "note": "Rest between sets"
+      }
+    ]
+  }
+]
