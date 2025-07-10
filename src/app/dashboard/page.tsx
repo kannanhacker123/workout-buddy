@@ -24,27 +24,7 @@ const fadeIn = {
   animate: { opacity: 1, y: 0 },
 };
 
-export const metadata = {
-  title: "Dashboard | Workout Buddy",
-  description: "Track your workouts, view progress, and manage your fitness goals with Workout Buddy AI.",
-  keywords: ["Workout Tracker", "Fitness Dashboard", "Gym AI", "Workout Buddy"],
-  openGraph: {
-    title: "Dashboard | Workout Buddy",
-    description: "Track your workouts, view progress, and manage your fitness goals with Workout Buddy AI.",
-    url: "https://workout-buddy-gray.vercel.app/dashboard",
-    siteName: "Workout Buddy",
-    images: [
-      {
-        url: "/Nero.png", // replace with your banner image path
-        width: 800,
-        height: 600,
-        alt: "Workout Buddy Dashboard",
-      },
-    ],
-    locale: "en_IN",
-    type: "website",
-  },
-};
+
 
 export default function DashboardPage() {
   const workoutProgress = 0

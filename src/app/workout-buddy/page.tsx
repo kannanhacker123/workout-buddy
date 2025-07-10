@@ -353,25 +353,6 @@ const WorkoutBuddyPage = () => {
     </div>
   );
 };
-export const metadata = {
-  title: "AI Buddy | Workout Assistant",
-  description: "Chat with your AI workout coach, get personalized routines, and stay motivated to crush your goals.",
-  keywords: ["AI Fitness Coach", "Workout Assistant", "Virtual Gym Trainer"],
-  openGraph: {
-    title: "Workout Buddy AI",
-    description: "Talk to your AI gym trainer and get real-time workout help.",
-    url: "https://workout-buddy-gray.vercel.app/workout-buddy",
-    siteName: "Workout Buddy",
-    images: [
-      {
-        url: "/vercel.png",
-        width: 800,
-        height: 600,
-        alt: "Workout AI Assistant",
-      },
-    ],
-    type: "website",
-  },
-};
+
 
 export default WorkoutBuddyPage;
