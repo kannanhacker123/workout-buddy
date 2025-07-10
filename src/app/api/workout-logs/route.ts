@@ -10,6 +10,7 @@ export async function GET() {
     const data = JSON.parse(fileContents);
     return NextResponse.json(data);
   } catch (error) {
+    console.error('Error reading workout logs:', error);
     return NextResponse.json({ error: 'Failed to read workout logs' }, { status: 500 });
   }
 }
