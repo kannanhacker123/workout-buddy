@@ -3,21 +3,17 @@
 import {
   BellIcon,
   HomeIcon,
-  LogOutIcon,
   MenuIcon,
-  UserIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
-import { useAuth, SignInButton, SignOutButton } from "@clerk/nextjs";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { ModeToggle } from "./modeToggle";
 
 function MobileNavbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const { isSignedIn } = useAuth();
   useTheme();
   return (
     <div className="flex md:hidden items-center space-x-2">
@@ -39,35 +35,18 @@ function MobileNavbar() {
                 Home
               </Link>
             </Button>
-
-            {isSignedIn ? (
-              <>
-                <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
-                  <Link href="/notifications">
-                    <BellIcon className="w-4 h-4" />
-                    Notifications
-                  </Link>
-                </Button>
-                <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
-                  <Link href="/profile">
-                    <UserIcon className="w-4 h-4" />
-                    Profile
-                  </Link>
-                </Button>
-                <SignOutButton>
-                  <Button variant="ghost" className="flex items-center gap-3 justify-start w-full">
-                    <LogOutIcon className="w-4 h-4" />
-                    Logout
-                  </Button>
-                </SignOutButton>
-              </>
-            ) : (
-              <SignInButton mode="modal">
-                <Button variant="default" className="w-full">
-                  Sign In
-                </Button>
-              </SignInButton>
-            )}
+            <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
+              <Link href="/dashboard">
+                <HomeIcon className="w-4 h-4" />
+                Dashboard
+              </Link>
+            </Button>
+            <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
+              <Link href="/workouts">
+                <BellIcon className="w-4 h-4" />
+                Workouts
+              </Link>
+            </Button>
           </nav>
         </SheetContent>
       </Sheet>

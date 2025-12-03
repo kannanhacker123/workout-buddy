@@ -2,10 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Chakra_Petch } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ClerkProvider } from "@clerk/nextjs";
 import NavBar from "@/components/my/NavBar";
 import { Toaster } from "@/components/ui/sonner";
-import SideBar from "@/components/my/SideBar";
 import { Analytics } from '@vercel/analytics/next';
 
 // Load fonts
@@ -28,8 +26,6 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-
-
 // Add viewport export separately
 export const viewport: Viewport = {
   width: "device-width",
@@ -44,50 +40,68 @@ export default function RootLayout({
   const fontClasses = `${geistSans.variable} ${geistMono.variable} ${chakraPetch.variable}`;
 
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body className={`${fontClasses} antialiased min-h-screen`}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <div className="flex flex-col min-h-screen">
-              <NavBar />
-              <div className="flex flex-1 pt-16">
-                <SideBar />
-                <main className="flex-1 px-4 md:px-6 py-4 md:py-6 overflow-y-scroll h-[calc(100vh-64px)]">
-                  <div className="max-w-7xl mx-auto">
-                    {children}
-                    <Analytics />
-                  </div>
-                </main>
-              </div>
-            </div>
-            <Toaster />
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${fontClasses} antialiased min-h-screen`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="flex flex-col min-h-screen">
+            <NavBar />
+            {children}
+          </div>
+          <Toaster />
+          <Analytics />
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
 
 export const metadata: Metadata = {
-  title: 'Workout Buddy | AI-Powered Fitness Companion with Nero',
+  metadataBase: new URL('https://workout-buddy-gray.vercel.app'),
+  title: {
+    default: 'Workout Buddy | AI-Powered Fitness Companion',
+    template: '%s | Workout Buddy'
+  },
   description: 'Achieve your fitness goals with Workout Buddy and Nero, your AI personal trainer. Track workouts, get personalized plans, and receive real-time coaching.',
-  keywords: 'workout app, fitness tracker, AI personal trainer, Nero, exercise planner',
+  keywords: ['workout app', 'fitness tracker', 'AI personal trainer', 'Nero', 'exercise planner', 'gym log', 'health', 'wellness'],
+  authors: [{ name: 'Kannan', url: 'https://github.com/kannanhacker123' }],
+  creator: 'Kannan',
   openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://workout-buddy-gray.vercel.app',
     title: 'Workout Buddy | AI-Powered Fitness Companion',
-    description: 'Train smarter with Nero, your AI fitness coach',
+    description: 'Train smarter with Nero, your AI fitness coach. Personalized workout plans and real-time tracking.',
+    siteName: 'Workout Buddy',
     images: [
       {
         url: 'https://github.com/kannanhacker123/workout-buddy/blob/master/public/Nero.png?raw=true',
         width: 1200,
         height: 630,
+        alt: 'Workout Buddy - AI Fitness Companion',
       }
     ],
-    type: 'website',
-    url: 'https://workout-buddy-gray.vercel.app/workout-buddy',
   },
-}
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Workout Buddy | AI-Powered Fitness Companion',
+    description: 'Train smarter with Nero, your AI fitness coach.',
+    images: ['https://github.com/kannanhacker123/workout-buddy/blob/master/public/Nero.png?raw=true'],
+    creator: '@kannanhacker123', 
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+};

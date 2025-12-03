@@ -1,23 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-// page.tsx
-import React, { ReactNode } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dumbbell, Calendar, TrendingUp, Heart } from "lucide-react";
-import { motion } from "framer-motion";
+import React from "react";
+import { motion, Variants } from "framer-motion";
 import HeroSection from "@/components/my/landing/HeroSection";
+import { FeatureCard } from "@/components/landing/FeatureCard";
+import { TestimonialCard } from "@/components/landing/TestimonialCard";
+import { SectionHeader } from "@/components/landing/SectionHeader";
+import { featuresData, testimonialsData, howItWorksSteps } from "@/data/landing";
 
 // ============================================================================
-// ANIMATION VARIANTS (Defined once, outside components)
+// ANIMATION VARIANTS
 // ============================================================================
 
-const fadeIn = {
+const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } },
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -27,175 +28,9 @@ const staggerContainer = {
   },
 };
 
-
-
-// ============================================================================
-// DATA CONSTANTS (Static data moved outside components)
-// ============================================================================
-
-const featuresData = [
-  {
-    icon: <Dumbbell className="h-6 w-6 text-primary" />,
-    title: "Custom Workout Plans",
-    description: "Create and customize workout routines tailored to your fitness goals.",
-  },
-  {
-    icon: <Calendar className="h-6 w-6 text-primary" />,
-    title: "Workout Scheduling",
-    description: "Plan your exercise schedule and receive reminders for upcoming sessions.",
-  },
-  {
-    icon: <TrendingUp className="h-6 w-6 text-primary" />,
-    title: "Progress Tracking",
-    description: "Monitor your fitness journey with detailed progress analytics and insights.",
-  },
-  {
-    icon: <Heart className="h-6 w-6 text-primary" />,
-    title: "Health Metrics",
-    description: "Record and analyze vital health metrics to optimize your fitness routine.",
-  },
-];
-
-const testimonialsData = [
-  {
-    name: "Alex Johnson",
-    quote: "Workout Buddy has transformed my fitness routine. I'm more consistent and seeing better results than ever before.",
-    role: "Fitness Enthusiast",
-  },
-  {
-    name: "Sarah Miller",
-    quote: "The progress tracking feature keeps me motivated. I love seeing how far I've come since I started.",
-    role: "Marathon Runner",
-  },
-];
-
-const howItWorksSteps = [
-    {
-      step: "1",
-      title: "Create Your Account",
-      description: "Sign up and set your fitness goals and preferences.",
-    },
-    {
-      step: "2",
-      title: "Plan Your Workouts",
-      description: "Build custom workout routines or choose from templates.",
-    },
-    {
-      step: "3",
-      title: "Track & Improve",
-      description: "Log your progress and adjust your plans as you get stronger.",
-    },
-];
-
-// ============================================================================
-// REUSABLE CHILD COMPONENTS
-// (In a real app, these would be in their own files, e.g., /components/landing/FeatureCard.tsx)
-// ============================================================================
-
-interface FeatureCardProps {
-  icon: ReactNode;
-  title: string;
-  description: string;
-}
-
-const FeatureCard = ({ icon, title, description }: FeatureCardProps) => (
-  <motion.div
-    variants={fadeIn}
-    whileHover={{ y: -8, transition: { type: "spring", stiffness: 300 } }}
-    className="h-full"
-  >
-    <Card className="transition-all hover:shadow-lg border border-border/50 overflow-hidden group h-full">
-      <div className="absolute h-1 bg-primary w-0 group-hover:w-full transition-all duration-300"></div>
-      <CardHeader>
-        <motion.div
-          whileHover={{ rotate: 10, scale: 1.1 }}
-          className="p-3 w-fit rounded-xl bg-primary/10 mb-4 group-hover:bg-primary/20 transition-colors"
-        >
-          {icon}
-        </motion.div>
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="text-muted-foreground">{description}</p>
-      </CardContent>
-    </Card>
-  </motion.div>
-);
-
-interface TestimonialCardProps {
-    quote: string;
-    name: string;
-    role: string;
-}
-
-const TestimonialCard = ({ quote, name, role }: TestimonialCardProps) => (
-    <motion.div variants={fadeIn} whileHover={{ y: -5 }}>
-        <Card className="bg-card border border-border/50 overflow-hidden h-full">
-            <CardContent className="p-8">
-                <div className="mb-6">
-                    {[...Array(5)].map((_, i) => (
-                        <motion.span
-                            key={i}
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1, transition: { delay: 0.1 * i } }}
-                            viewport={{ once: true }}
-                            className="text-yellow-500 mr-1 inline-block"
-                        >
-                            ★
-                        </motion.span>
-                    ))}
-                </div>
-                <p className="italic mb-6 text-lg">{quote}</p>
-                <div className="flex items-center">
-                    <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center mr-3">
-                        <span className="font-semibold text-primary">{name.charAt(0)}</span>
-                    </div>
-                    <div>
-                        <p className="font-semibold">{name}</p>
-                        <p className="text-sm text-muted-foreground">{role}</p>
-                    </div>
-                </div>
-            </CardContent>
-        </Card>
-    </motion.div>
-);
-
-const SectionHeader = ({ title, subtitle }: { title: string; subtitle: string }) => (
-    <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={fadeIn}
-        className="text-center mb-16"
-    >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">{title}</h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>
-    </motion.div>
-);
-
-
 // ============================================================================
 // PAGE SECTION COMPONENTS
-// (In a real app, these would be in their own files, e.g., /components/landing/HeroSection.tsx)
 // ============================================================================
-
-
-const AppPreviewSection = () => {
-    // This component is still quite large. The dashboard mockup itself could be a separate component.
-    // For this refactor, it's left as is to keep the example focused, but further breakdown is possible.
-    return (
-        <section className="w-full py-24 relative">
-            <div className="container px-4 max-w-6xl mx-auto">
-                <SectionHeader title="Your Fitness Journey at a Glance" subtitle="Beautiful, intuitive interface to manage all your workout needs" />
-                
-                {/* ... The complex JSX for the dashboard mockup ... */}
-                {/* This part remains the same as the original for brevity. */}
-                {/* A good next step would be to extract the dashboard into its own component: <DashboardPreview /> */}
-
-            </div>
-        </section>
-    );
-};
 
 
 const FeaturesSection = () => (
@@ -244,7 +79,7 @@ const HowItWorksSection = () => (
                     className="grid md:grid-cols-3 gap-8"
                 >
                     {howItWorksSteps.map((step, index) => (
-                        <motion.div key={index} variants={fadeIn} className="flex flex-col items-center text-center relative z-10">
+                        <motion.div key={index} className="flex flex-col items-center text-center relative z-10">
                             <motion.div
                                 initial={{ scale: 0 }}
                                 whileInView={{ scale: 1, transition: { type: "spring", stiffness: 200, delay: index * 0.3 } }}
@@ -280,6 +115,7 @@ const TestimonialsSection = () => (
                     <TestimonialCard key={index} {...testimonial} />
                 ))}
             </motion.div>
+            
         </div>
     </section>
 );
@@ -338,21 +174,16 @@ const Footer = () => {
     );
 };
 
-
-// ============================================================================
-// FINAL EXPORTED PAGE COMPONENT
-// ============================================================================
-
 export default function HomePage() {
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full pt-16">
       <HeroSection/>
-      <AppPreviewSection />
       <FeaturesSection />
       <HowItWorksSection />
       <TestimonialsSection />
       <CtaSection />
       <Footer />
+      
     </div>
   );
 }
