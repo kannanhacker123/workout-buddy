@@ -7,17 +7,11 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { 
+import {
   Home, 
-  Dumbbell, 
-  Calendar, 
-  History, 
-  Settings, 
   ChevronLeft, 
   ChevronRight,
-  Menu,
-  CoffeeIcon,
-  BotIcon
+  Menu
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -60,36 +54,6 @@ const navItems: NavItem[] = [
     href: "/dashboard",
     icon: <Home className="h-5 w-5" />,
   },
-  {
-    title: "Workouts",
-    href: "/workouts",
-    icon: <Dumbbell className="h-5 w-5" />,
-  },
-  {
-    title: "Workout and Nutrition Information",
-    href: "/workout-and-nutrition-information",
-    icon: <CoffeeIcon className="h-5 w-5" />,
-  },
-  {
-    title: "Schedule",
-    href: "/schedule",
-    icon: <Calendar className="h-5 w-5" />,
-  },
-  {
-    title: "History",
-    href: "/history",
-    icon: <History className="h-5 w-5" />,
-  },
-  {
-    title: "Settings",
-    href: "/settings",
-    icon: <Settings className="h-5 w-5" />,
-  },
-  {
-    title: "Workout Buddy AI",
-    href: "/workout-buddy",
-    icon: <BotIcon className="h-5 w-5" />,
-  }
 ];
 
 const ClientSideBar = () => {

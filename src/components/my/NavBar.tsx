@@ -18,9 +18,7 @@ const NavBar = () => {
             <Button variant="ghost" size="sm" asChild>
               <Link href="/dashboard">Dashboard</Link>
             </Button>
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="/workouts">Workouts</Link>
-            </Button>
+
           </div>
           <ModeToggle />
         </div>
